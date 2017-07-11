@@ -21,12 +21,12 @@ Quick and easy:
 
 Each method returns an %ArrayOfDataTypes instance populated with your env variables. When using `FromPath`, existing ones aren't overwritten.
 
-CONTRIBUTING
+## CONTRIBUTING
 
 Got some idea? Follow this [guide](https://github.com/rfns/dotenv/blob/master/CONTRIBUTING.md).
 
 If you want to run those tests you must have [Port](https://github.com/rfns/port) installed since uses it a different mechanism for running them straight from your repository folder.
 
-LICENSE
+## LICENSE
 
 [MIT](https://github.com/rfns/dotenv/blob/master/LICENSE).
