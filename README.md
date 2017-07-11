@@ -21,6 +21,14 @@ Quick and easy:
 
 Each method returns an %ArrayOfDataTypes instance populated with your env variables. When using `FromPath`, existing ones aren't overwritten.
 
+.dotenv files should be composed using the following format:
+
+```
+YOUR_VARIABLE="your value"
+YOUR_NUMBER=1337
+WHATEVER="you want, it\'s also \nescaped"
+```
+
 ## CONTRIBUTING
 
 Got some idea? Follow this [guide](https://github.com/rfns/dotenv/blob/master/CONTRIBUTING.md).
