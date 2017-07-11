@@ -33,7 +33,7 @@ WHATEVER="you want, it\'s also \nescaped"
 
 Got some idea? Follow this [guide](https://github.com/rfns/dotenv/blob/master/CONTRIBUTING.md).
 
-If you want to run those tests you must have [Port](https://github.com/rfns/port) installed since uses it a different mechanism for running them straight from your repository folder.
+If you want to run those tests you must have [Port](https://github.com/rfns/port) installed since it uses a different mechanism for running them straight from your repository folder.
 
 ## LICENSE
 
