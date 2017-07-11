@@ -10,21 +10,21 @@ ClassMethod FromOS(Output sc As %Status = {$$$OK}) As %ArrayOfDataTypes
   quit ..CreateArray(output)
 }
 
-ClassMethod FromPath(path As %String, Output sc As %Status = {$$$OK}, dotenv As %String = ".dotenv") As %ListOfDataTypes
+ClassMethod FromPath(path As %String, Output sc As %Status = {$$$OK}, dotenv As %String = ".env") As %ListOfDataTypes
 {
   #dim dotEnvs, envs As %ArrayOfDataTypes
-  
+
   set envs = ..FromOS(.sc)
   if $$$ISERR(sc) return envs
   set fs = ##class(%Stream.FileCharacter).%New()
   set sc = fs.LinkToFile(path_"/"_dotenv)
   set dotEnvs = ..CreateArray(fs)
   set envName = ""
-  
+
   for i=1:1:dotEnvs.Count() {
     set envName = dotEnvs.Next(envName)
     set envValue = dotEnvs.GetAt(envName)
-    
+
     if 'envs.IsDefined(envName) {
       set sc = envs.SetAt(envValue, envName)
       if $$$ISERR(sc) quit
@@ -37,14 +37,14 @@ ClassMethod CreateArray(out As %Stream.Object) As %ArrayOfDataTypes [ Internal ]
 {
   set envs = ##class(%ArrayOfDataTypes).%New()
   if '$isobject(out) quit envs
-  
+
   while 'out.AtEnd {
     set line = out.ReadLine()
     set envName = $piece(line, "=")
     set envValue = $piece(line, "=", 2)
     if $extract(envValue) = $char(34) && ($extract(envValue, *) = $char(34)) {
       set envValue = $zconvert($extract(envValue, 2, *-1), "I", "JS")
-    }    
+    }
     do envs.SetAt(envValue, envName)
   }
   quit envs

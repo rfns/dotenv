@@ -79,22 +79,22 @@
 
 <Method name="FromPath">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>path:%String,*sc:%Status=$$$OK,dotenv:%String=".dotenv"</FormalSpec>
+<FormalSpec>path:%String,*sc:%Status=$$$OK,dotenv:%String=".env"</FormalSpec>
 <ReturnType>%ListOfDataTypes</ReturnType>
 <Implementation><![CDATA[
   #dim dotEnvs, envs As %ArrayOfDataTypes
-  
+
   set envs = ..FromOS(.sc)
   if $$$ISERR(sc) return envs
   set fs = ##class(%Stream.FileCharacter).%New()
   set sc = fs.LinkToFile(path_"/"_dotenv)
   set dotEnvs = ..CreateArray(fs)
   set envName = ""
-  
+
   for i=1:1:dotEnvs.Count() {
     set envName = dotEnvs.Next(envName)
     set envValue = dotEnvs.GetAt(envName)
-    
+
     if 'envs.IsDefined(envName) {
       set sc = envs.SetAt(envValue, envName)
       if $$$ISERR(sc) quit
@@ -112,14 +112,14 @@
 <Implementation><![CDATA[
   set envs = ##class(%ArrayOfDataTypes).%New()
   if '$isobject(out) quit envs
-  
+
   while 'out.AtEnd {
     set line = out.ReadLine()
     set envName = $piece(line, "=")
     set envValue = $piece(line, "=", 2)
     if $extract(envValue) = $char(34) && ($extract(envValue, *) = $char(34)) {
       set envValue = $zconvert($extract(envValue, 2, *-1), "I", "JS")
-    }    
+    }
     do envs.SetAt(envValue, envName)
   }
   quit envs
@@ -193,35 +193,35 @@
 <Implementation><![CDATA[
   set envs = ##class(DotEnv.Parser).FromOS()
   do $$$AssertTrue($isobject(envs) && envs.%IsA("%ArrayOfDataTypes"), "returns an %ArrayOfDataTypes")
-  
+
   do $$$AssertTrue(envs.Count() > 0, "parsed envs from host OS")
 ]]></Implementation>
 </Method>
 
 <Method name="TestFromPath">
 <Implementation><![CDATA[
- 
+
   set envs = ##class(DotEnv.Parser).FromPath(..GetTestDirectory("../fixtures"))
   do $$$AssertTrue($isobject(envs) && envs.%IsA("%ArrayOfDataTypes"), "returns an %ArrayOfDataTypes")
-  
+
   do $$$AssertTrue($isobject(envs) && envs.%IsA("%ArrayOfDataTypes") && envs.Count() > 0, "returns an array containing var names and values")
   set envsFromOS = ##class(DotEnv.Parser).FromOS()
 
-#if $$$isWINDOWS    
+#if $$$isWINDOWS
   do $$$AssertTrue(envs.GetAt("Path") = envsFromOS.GetAt("Path"), "never overwrites existing variables")
-#else 
+#else
   // UNIX
   do $$$AssertTrue(envs.GetAt("PATH") = envsFromOS.GetAt("PATH"), "never overwrites existing variables")
 #endif
 
-  do $$$AssertTrue(envs.GetAt("DOTENV_HELLO") = "Hello from "".dotenv""", "parses escaped strings")
+  do $$$AssertTrue(envs.GetAt("DOTENV_HELLO") = "Hello from "".env""", "parses escaped strings")
   do $$$AssertTrue(envs.GetAt("DOTENV_NUMBER_TEST") = 1234, "parses numbers")
 ]]></Implementation>
 </Method>
 </Class>
 
 
-<Project name="dotenv" LastModified="2017-07-11 14:33:04.373606" Target="##class(DotEnv.Parser).FromPath(&quot;C:\CacheProjects\DEV\dotenv\tests\fixtures&quot;)" TargetType="0">
+<Project name="dotenv" LastModified="2017-07-11 16:00:22.893558" Target="##class(DotEnv.Parser).FromPath(&quot;C:\CacheProjects\DEV\dotenv\tests\fixtures&quot;)" TargetType="0">
   <Items>
     <ProjectItem name="DotEnv.Command" type="CLS"></ProjectItem>
     <ProjectItem name="DotEnv.Parser" type="CLS"></ProjectItem>
