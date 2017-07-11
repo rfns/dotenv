@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="UnitTest.DotEnv.Command">
+<Super>Port.UnitTest.TestCase</Super>
+<TimeCreated>64475,39195.277896</TimeCreated>
+
+<Property name="Command">
+<Type>DotEnv.Command</Type>
+</Property>
+
+<Method name="OnBeforeOneTest">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set ..Command = ##class(DotEnv.Command).%New()
+  quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="OnAfterOnTest">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set ..Command = ""
+  quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="TestErrorFilePath">
+<Implementation><![CDATA[  do $$$AssertTrue(..Command.OutputFilePath '= "", "generates a temp file for errors")
+]]></Implementation>
+</Method>
+
+<Method name="TestOutputFilePath">
+<Implementation><![CDATA[  do $$$AssertTrue(..Command.ErrorFilePath '= "", "generates a output file for command logs")
+]]></Implementation>
+</Method>
+
+<Method name="TestOnCloseDeleteTempFiles">
+<Implementation><![CDATA[
+  set errorFilePath = ..Command.ErrorFilePath
+  set outputFilePath = ..Command.OutputFilePath
+  
+  set ..Command = ""
+  
+  do $$$AssertNotTrue(errorFilePath '= "" && ##class(%File).Exists(errorFilePath), "deletes error temp file")
+  do $$$AssertNotTrue(outputFilePath '= "" && ##class(%File).Exists(outputFilePath), "deletes output temp file")
+]]></Implementation>
+</Method>
+
+<Method name="TestCaptureEnvsFromHostOS">
+<Implementation><![CDATA[
+  do $$$AssertStatusOK(..Command.CaptureEnvsFromHostOS(), "normally doesn't return an error")
+  do ..Command.CaptureEnvsFromHostOS(.output)
+  
+  do $$$AssertTrue($isobject(output) && output.%Extends("%Stream.Object") && output.Size > 0, "returns a stream containg env variables")
+]]></Implementation>
+</Method>
+</Class>
+</Export>

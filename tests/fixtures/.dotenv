@@ -1,0 +1,2 @@
+DOTENV_NUMBER_TEST=1234
+DOTENV_HELLO="Hello from \".dotenv\""
