@@ -40,7 +40,7 @@ Method CaptureEnvsFromHostOS(Output outputBuffer As %Stream.Object = "") As %Sta
   set errorBuffer = ##class(%FileCharacterStream).%New()  
   set errorBuffer.Filename = ..ErrorFilePath 
   
-  if outputBuffer.Size = 0 return $$$ERROR(5001, "Unable to execute OS command, failed due to: "_errorBuffer.Read())
+  if outputBuffer.Size = 0 quit $$$ERROR(5001, "Unable to execute OS command, failed due to: "_errorBuffer.Read())
   
   quit $$$OK
 }
