@@ -1,0 +1,20 @@
+name: CI
+
+on: [push]
+
+jobs:
+  tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone this repository
+      uses: actions/checkout@v2
+      with:
+        path: app
+    - name: Build and run
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" > ~/GH_TOKEN.txt
+        cat ~/GH_TOKEN.txt | docker login -u rfns --password-stdin docker.pkg.github.com
+        docker run -t --rm --name test-runner rfns/test-runner --volume=./app:/opt/runner/app
+
