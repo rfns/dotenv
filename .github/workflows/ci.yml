@@ -16,5 +16,5 @@ jobs:
       run: |
         echo "${{ secrets.REGISTRY_PAT }}" > ~/GH_TOKEN.txt
         cat ~/GH_TOKEN.txt | docker login -u rfns --password-stdin docker.pkg.github.com
-        docker run -t --rm --name ci --volume=$(pwd)/app:/opt/runner/app docker.pkg.github.com/rfns/iris-port-ci/iris-port-ci:v0.1.8
+        docker run -t --rm --name ci --volume=$(pwd)/app:/opt/runner/app docker.pkg.github.com/rfns/iris-port-ci/iris-port-ci:v0.2.1
 
