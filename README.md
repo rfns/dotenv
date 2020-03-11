@@ -21,7 +21,7 @@ Quick and easy:
 
 Each method returns an %ArrayOfDataTypes instance populated with your env variables. When using `FromPath`, existing ones aren't overwritten.
 
-.dotenv files should be composed using the following format:
+.env files should be composed using the following format:
 
 ```
 YOUR_VARIABLE="your value"
