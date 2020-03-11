@@ -17,6 +17,7 @@ ClassMethod FromPath(path As %String, Output sc As %Status = {$$$OK}, dotenv As 
   set envs = ..FromOS(.sc)
   if $$$ISERR(sc) return envs
   set fs = ##class(%Stream.FileCharacter).%New()
+  zw fs
   set sc = fs.LinkToFile(path_"//"_dotenv)
   set dotEnvs = ..CreateArray(fs)
   set envName = ""
