@@ -1,5 +1,6 @@
 Include (%occOptions, %occStatus)
 
+/// testeasege
 Class DotEnv.Command Extends %RegisteredObject
 {
 
@@ -25,23 +26,23 @@ Method %OnClose() As %Status
 Method CaptureEnvsFromHostOS(Output outputBuffer As %Stream.Object = "") As %Status [ Internal ]
 {
   set commmandString = ""
-  
+
   if $$$isWINDOWS {
     set commmandString = $$$FormatText("set 2> ""%1"" > ""%2""", ..ErrorFilePath, ..OutputFilePath)
   } elseif $$$isUNIX {
     set commmandString = $$$FormatText("printenv 2> ""%1"" > ""%2""", ..ErrorFilePath, ..OutputFilePath)
   }
-  
+
   do $zf(-1, commmandString)
-  
-  set outputBuffer = ##class(%FileCharacterStream).%New()  
+
+  set outputBuffer = ##class(%FileCharacterStream).%New()
   set outputBuffer.Filename = ..OutputFilePath
-  
-  set errorBuffer = ##class(%FileCharacterStream).%New()  
-  set errorBuffer.Filename = ..ErrorFilePath 
-  
+
+  set errorBuffer = ##class(%FileCharacterStream).%New()
+  set errorBuffer.Filename = ..ErrorFilePath
+
   if outputBuffer.Size = 0 quit $$$ERROR(5001, "Unable to execute OS command, failed due to: "_errorBuffer.Read())
-  
+
   quit $$$OK
 }
 
