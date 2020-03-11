@@ -1,4 +1,4 @@
-Class UnitTest.DotEnv.Command Extends Port.UnitTest.TestCase
+Class UnitTest.DotEnv.Command Extends %UnitTest.TestCase
 {
 
 Property Command As DotEnv.Command;
