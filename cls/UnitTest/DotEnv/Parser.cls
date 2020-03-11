@@ -1,4 +1,4 @@
-Class UnitTest.DotEnv.Parser Extends Port.UnitTest.TestCase
+Class UnitTest.DotEnv.Parser Extends %UnitTest.TestCase
 {
 
 Method TestFromOS()
