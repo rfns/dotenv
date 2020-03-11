@@ -17,7 +17,7 @@ ClassMethod FromPath(path As %String, Output sc As %Status = {$$$OK}, dotenv As 
   set envs = ..FromOS(.sc)
   if $$$ISERR(sc) return envs
   set fs = ##class(%Stream.FileCharacter).%New()
-  set sc = fs.LinkToFile(path_"/"_dotenv)
+  set sc = fs.LinkToFile(path_"//"_dotenv)
   set dotEnvs = ..CreateArray(fs)
   set envName = ""
 
@@ -40,6 +40,7 @@ ClassMethod CreateArray(out As %Stream.Object) As %ArrayOfDataTypes [ Internal ]
 
   while 'out.AtEnd {
     set line = out.ReadLine()
+    continue:line=""
     set envName = $piece(line, "=")
     set envValue = $piece(line, "=", 2)
     if $extract(envValue) = $char(34) && ($extract(envValue, *) = $char(34)) {
