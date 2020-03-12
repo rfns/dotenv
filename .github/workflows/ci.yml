@@ -19,7 +19,6 @@ jobs:
         path: app
     - name: Build and run test suite
       run: |
-        echo "${{ secrets.REGISTRY_PAT }}" > ~/GH_TOKEN.txt
-        cat ~/GH_TOKEN.txt | docker login -u rfns --password-stdin docker.pkg.github.com
-        docker run -t --rm --name ci -v $PWD/app:/opt/ci/root docker.pkg.github.com/rfns/iris-ci/iris-ci:v0.3.1
+        docker pull rfns/iris-ci:0.4.0
+        docker run -t --rm --name ci -v $PWD/app:/opt/ci/root rfns/iris-ci:0.4.0
 
