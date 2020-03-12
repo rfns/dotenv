@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ['master']
+    paths: ['cls/**/*.cls']
+  push:
+    branches: ['master']
+
+jobs:
+  tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone this repository
+      uses: actions/checkout@v2
+      with:
+        path: app
+    - name: Build and run test suite
+      run: |
+        echo "${{ secrets.REGISTRY_PAT }}" > ~/GH_TOKEN.txt
+        cat ~/GH_TOKEN.txt | docker login -u rfns --password-stdin docker.pkg.github.com
+        docker run -t --rm --name ci -v $PWD/app:/opt/ci/root docker.pkg.github.com/rfns/iris-ci/iris-ci:v0.3.1
+
