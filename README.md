@@ -17,9 +17,13 @@ The easiest way is to simply import the released XML from [here](https://github.
 Quick and easy:
 
 * If you want to read from your OS use `##class(DotEnv.Parser).FromOS()`
-* If you want to read from a file use `##class(DotEnv.Parser).FromPath()`
+* If you want to read from a file use `##class(DotEnv.Parser).FromPath("path/to/file", .status, ".env-prod")`
 
-Each method returns an %ArrayOfDataTypes instance populated with your env variables. When using `FromPath`, existing ones aren't overwritten.
+Each method returns an %ArrayOfDataTypes instance populated with your env variables. 
+
+> __NOTE:__ When using `FromPath`, any of the existing ones won't be overwritten. Do NOT include the file name when passing the path to this method. Use the third parameter for that instead: (path, status code, file name). The default file name is `.env`.
+
+## Format
 
 .env files should be composed using the following format:
 
