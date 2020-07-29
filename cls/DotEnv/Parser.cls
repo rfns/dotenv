@@ -42,7 +42,7 @@ ClassMethod CreateArray(out As %Stream.Object) As %ArrayOfDataTypes [ Internal ]
     set line = out.ReadLine()
     continue:line=""
     set envName = $piece(line, "=")
-    set envValue = $piece(line, "=", 2)
+    set envValue = $piece(line, "=", 2, *)
     if $extract(envValue) = $char(34) && ($extract(envValue, *) = $char(34)) {
       set envValue = $zconvert($extract(envValue, 2, *-1), "I", "JS")
     }
