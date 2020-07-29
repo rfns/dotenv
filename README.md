@@ -10,7 +10,7 @@ Add the capability of reading environment variables from a .dotenv file or strai
 
 ## Installing
 
-The easiest way is to simply import the [dotenv.xml](https://github.com/rfns/dotenv/blob/master/dotenv.xml) provided.
+The easiest way is to simply import the released XML from [here](https://github.com/rfns/dotenv/releases/download/v1.0.0/dotenv-v1.0.0.xml)
 
 ## Usage
 
