@@ -6,7 +6,7 @@
 
 Almost every language has dotenv. So why not Caché?
 
-Add the capability of reading environment variables from a .dotenv file or straight from your running OS.
+Add the capability of reading environment variables from a .env file or straight from your running OS.
 
 ## Installing
 
