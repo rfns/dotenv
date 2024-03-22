@@ -3,11 +3,11 @@ Include %occStatus
 Class DotEnv.Parser [ Abstract ]
 {
 
-ClassMethod FromOS(Output sc As %Status = {$$$OK}) As %ArrayOfDataTypes
+ClassMethod FromOS(Output sc As %Status = {$$$OK}, ByRef env ) As %ArrayOfDataTypes
 {
   set command = ##class(DotEnv.Command).%New()
   set sc = command.CaptureEnvsFromHostOS(.output)
-  quit ..CreateArray(output)
+  quit ..CreateArray(output,.env)
 }
 
 ClassMethod FromPath(path As %String, Output sc As %Status = {$$$OK}, dotenv As %String = ".env") As %ListOfDataTypes
@@ -33,7 +33,7 @@ ClassMethod FromPath(path As %String, Output sc As %Status = {$$$OK}, dotenv As 
   quit envs
 }
 
-ClassMethod CreateArray(out As %Stream.Object) As %ArrayOfDataTypes [ Internal ]
+ClassMethod CreateArray(out As %Stream.Object, env) As %ArrayOfDataTypes [ Internal ]
 {
   set envs = ##class(%ArrayOfDataTypes).%New()
   if '$isobject(out) quit envs
@@ -47,6 +47,7 @@ ClassMethod CreateArray(out As %Stream.Object) As %ArrayOfDataTypes [ Internal ]
       set envValue = $zconvert($extract(envValue, 2, *-1), "I", "JS")
     }
     do envs.SetAt(envValue, envName)
+    set env(envName) = envValue
   }
   quit envs
 }
