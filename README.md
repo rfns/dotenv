@@ -32,6 +32,68 @@ YOUR_VARIABLE="your value"
 YOUR_NUMBER=1337
 WHATEVER="you want, it\'s also \nescaped"
 ```
+## What's new
+Added dockerization of the project and the ability to publish it in IPM if the author makes an update.
+
+
+## Installation with ZPM
+
+If ZPM the current instance is not installed, then in one line you can install the latest version of ZPM.
+```
+zn "%SYS" d ##class(Security.SSLConfigs).Create("z") s r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="z" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
+```
+If ZPM is installed, then can be set with the command
+```
+zpm:USER>install dotenv
+```
+## Installation with Docker
+
+## Prerequisites
+Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
+
+## Installation 
+Clone/git pull the repo into any local directory
+
+```
+git clone https://github.com/rfns/dotenv
+```
+
+Open the terminal in this directory and run:
+
+```
+docker-compose build
+```
+
+3. Run the IRIS container with your project:
+
+```
+docker-compose up -d
+```
+
+## How to Test it
+Open IRIS terminal:
+
+```
+docker-compose exec iris iris session iris
+```
+And execute commands from shell history
+```
+USER>set v = ##class(DotEnv.Parser).FromOS(,.env)
+
+USER>zw env
+env("CACHELIBPATH")=""
+env("COMLIB")="/usr/irissys/bin"
+env("HOME")="/home/irisowner"
+...
+
+USER>w v.GetAt("HOME")
+/home/irisowner
+
+USER>!env | grep HO
+HOSTNAME=dde47b2be44e
+HOME=/home/irisowner
+
+```
 
 ## CONTRIBUTING
 
