@@ -1,0 +1,14 @@
+
+zn "USER"
+;zpm "install webterminal"
+;zpm "load https://github.com/intersystems-community/webterminal.git"
+
+if $zf(-1,"echo ':!env | grep HO' >> ~/.iris_history'")
+if $zf(-1,"echo ':zwrite env("HOME")' >> ~/.iris_history'")
+if $zf(-1,"echo ':write v.GetAt("HOME")' >> ~/.iris_history'")
+if $zf(-1,"echo ':set v = ##class(DotEnv.Parser).FromOS(,.env)' >> ~/.iris_history")
+
+zpm "load /opt/irisapp/ -v":1
+;zpm "load https://github.com/SergeyMi37/isc-passwordless.git"
+
+halt

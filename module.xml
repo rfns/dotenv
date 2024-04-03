@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Document name="dotenv.ZPM">
+<Module>
+ <Name>dotenv</Name>
+  <Version>1.0.55</Version>
+  <Description>Load environment variables from .env files or from the OS to Caché/IRIS.</Description>
+  <Keywords>dotenv</Keywords>
+  <Packaging>module</Packaging>
+  <SourcesRoot>cls</SourcesRoot>
+  <Resource Name="DotEnv.PKG" />
+</Module>
+</Document>
+</Export>
